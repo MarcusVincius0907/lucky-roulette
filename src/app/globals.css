@@ -31,3 +31,12 @@ body {
     text-wrap: balance;
   }
 }
+
+.MuiBox-root {
+  border-radius: 10px !important;
+  border: 0px !important;
+}
+
+.fontFamily {
+  font-family: "Chakra Petch", sans-serif;
+}
