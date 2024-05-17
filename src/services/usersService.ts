@@ -1,16 +1,49 @@
-import { ApiResponse } from '../types/User'
-import BaseService from './baseService'
+import { User } from '../types/User'
+import { v4 as uuidv4 } from 'uuid';
 
-export default class PostsService {
-  private _baseService: BaseService = new BaseService()
+export default class UsersService {
+  private _users: User[] = []
+  private _storageKey = 'USERS_LUCKY_ROULETTE'
 
-  async getUser(userName: string): Promise<ApiResponse> {
+  constructor() {
     try {
-      const req = await this._baseService.http.get(`/user/${userName}/about.json`)
-      return req.data
-    } catch (ex) {
-      return this._baseService.apiErrorTreatment(ex)
+      this._users = JSON.parse(localStorage.getItem(this._storageKey) || "") || []
+    } catch (e) {
+      this._users = []
     }
+  }
+
+  private _updateStorage() {
+    localStorage.setItem(this._storageKey, JSON.stringify(this._users));
+  }
+
+  addUser(user: User) {
+    user.id = uuidv4();
+    this._users.push(user);
+    this._updateStorage()
+
+    return this._users
+  }
+
+  updateById(id: string, user: User) {
+    this._users = this._users.filter(user => user.id !== id)
+
+    return this.addUser(user)
+  }
+
+  getUsers() {
+    return this._users;
+  }
+
+  getUserById(id: string) {
+    return this._users.find(user => user.id === id)
+  }
+
+  deleteById(id: string) {
+    this._users = this._users.filter(user => user.id !== id)
+    this._updateStorage();
+
+    return this._users
   }
 
 }

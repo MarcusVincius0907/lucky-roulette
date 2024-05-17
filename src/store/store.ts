@@ -1,4 +1,3 @@
-import PostModule from './modules/Posts/store'
 import UsersModule from './modules/Users/store'
 import { MainMutations } from './mutations'
 import { mainState, State } from './state'
@@ -11,7 +10,6 @@ export default class MainStore {
     this.mutations = MainMutations
 
     this.modules = {
-      PostModule: PostModule,
       UsersModule: UsersModule
     }
   }

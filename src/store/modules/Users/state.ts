@@ -1,7 +1,7 @@
-import { LightUser } from "../../../types/User"
+import { User } from "../../../types/User"
 
 export interface UsersModuleState {
-  userList: Array<LightUser>
+  userList: Array<User>
 }
 
 export const UsersState: UsersModuleState = {
